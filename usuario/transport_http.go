@@ -1,14 +1,13 @@
 //Se llamara a un metodo del service dependiendo de la accion get o post
 //LLamadas de los metodos dependiendo de la accion
-package alumno
+package usuario
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
-	"strconv"
 
 	"github.com/go-chi/chi"
-
 	kithttp "github.com/go-kit/kit/transport/http"
 )
 
@@ -17,22 +16,17 @@ func MakeHttpsHandler(s Service) http.Handler {
 	r := chi.NewRouter() //Creando instancia para iniciar el ruteo
 
 	getStudentByIdHandler := kithttp.NewServer(
-		makeGetStudentByIdEndPoint(s),
-		getStudenByIdRequestDecoder,
+		registerUserEndPoint(s),
+		registerUserRequestDecoder,
 		kithttp.EncodeJSONResponse,
 	)
 
-	r.Method(
-		http.MethodGet, //EL VERBO O METODO GET
-		"/{id}",        //El patron o id
-		getStudentByIdHandler,
-	)
+	r.Method(http.MethodPost, "/", getStudentByIdHandler)
 	return r
 }
 
-func getStudenByIdRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
-	studentId, _ := strconv.Atoi(chi.URLParam(r, "id"))
-	return getStudentByIDRequest{
-		StudentID: studentId,
-	}, nil
+func registerUserRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
+	request := registerUserRequest{}
+	err := json.NewDecoder(r.Body).Decode(&request)
+	return request, err
 }

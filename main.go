@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	"github.com/RestApiELearningLP2/alumno"
 	"github.com/RestApiELearningLP2/database"
+	"github.com/RestApiELearningLP2/usuario"
 	"github.com/go-chi/chi"
 )
 
@@ -13,12 +13,12 @@ func main() {
 
 	defer databaseConnection.Close()
 
-	var studentRepository = alumno.NewRepository(databaseConnection)
-	var studentService alumno.Service
-	studentService = alumno.NewService(studentRepository)
+	var studentRepository = usuario.NewRepository(databaseConnection)
+	var studentService usuario.Service
+	studentService = usuario.NewService(studentRepository)
 
 	r := chi.NewRouter()
 
-	r.Mount("/alumnos", alumno.MakeHttpsHandler(studentService))
+	r.Mount("/registro", usuario.MakeHttpsHandler(studentService))
 	http.ListenAndServe(":3000", r)
 }
