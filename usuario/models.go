@@ -7,3 +7,7 @@ type Usuario struct {
 	Usuario_password string `json:"password,omitempty"`
 	Usuario_avatar   string `json:"avatar,omitempty"`
 }
+
+type RespuestaLogin struct {
+	Token string `json:"token,omitempty"`
+}

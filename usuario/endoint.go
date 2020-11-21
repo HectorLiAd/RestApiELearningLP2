@@ -38,3 +38,10 @@ func loginUserEndPoint(s Service) endpoint.Endpoint {
 	}
 	return loginUserEndPoint
 }
+
+func pruebaUserEndPoint(s Service) endpoint.Endpoint {
+	loginUserEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
+		return map[string]string{"mensaje": "tarea creada"}, nil
+	}
+	return loginUserEndPoint
+}

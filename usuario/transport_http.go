@@ -15,13 +15,27 @@ func MakeHttpsHandler(s Service) http.Handler {
 	//Creacion de las rutas
 	r := chi.NewRouter() //Creando instancia para iniciar el ruteo
 
-	getStudentByIdHandler := kithttp.NewServer(
+	createUseHandler := kithttp.NewServer(
 		registerUserEndPoint(s),
 		registerUserRequestDecoder,
 		kithttp.EncodeJSONResponse,
 	)
+	r.Method(http.MethodPost, "/register", createUseHandler)
 
-	r.Method(http.MethodPost, "/", getStudentByIdHandler)
+	loginUseHandler := kithttp.NewServer(
+		loginUserEndPoint(s),
+		loginUserRequestDecoder,
+		kithttp.EncodeJSONResponse,
+	)
+	r.Method(http.MethodPost, "/login", loginUseHandler)
+	/*Pruebasssss*/
+	pruebaUseHandler := kithttp.NewServer(
+		pruebaUserEndPoint(s),
+		pruebaUserRequestDecoder,
+		kithttp.EncodeJSONResponse,
+	)
+	r.Method(http.MethodGet, "/verPerfil", pruebaUseHandler)
+
 	return r
 }
 
@@ -29,4 +43,16 @@ func registerUserRequestDecoder(context context.Context, r *http.Request) (inter
 	request := registerUserRequest{}
 	err := json.NewDecoder(r.Body).Decode(&request)
 	return request, err
+}
+
+func loginUserRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
+	request := loginUserRequest{}
+	err := json.NewDecoder(r.Body).Decode(&request)
+	return request, err
+}
+
+/*----------------------------------------*/
+func pruebaUserRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
+	request := loginUserRequest{}
+	return request, nil
 }

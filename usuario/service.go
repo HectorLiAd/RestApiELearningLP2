@@ -62,7 +62,7 @@ func (s *service) IntentoLogin(params *loginUserRequest) (*Usuario, error) {
 	if err != nil {
 		return nil, err
 	}
-	if encontrado <= 0 {
+	if encontrado == 0 {
 		return nil, errors.New("Usuario no encontrado")
 	}
 	passwordBytes := []byte(params.Usuario_password)
@@ -85,9 +85,9 @@ func (s *service) LoginUsuario(params *loginUserRequest) (interface{}, error) {
 	}
 
 	//JWT
-	jwtkey, er := jwt.GeneroJWT(usuario)
-	if err != nil {
-		return jwtkey, errors.New("El email del usuario es requerido" + er.errors())
+	jwtkey, er := GeneroJWT(usuario)
+	if er != nil {
+		return "", errors.New("El email del usuario es requerido" + er.Error())
 	}
 	resp := RespuestaLogin{
 		Token: jwtkey,
