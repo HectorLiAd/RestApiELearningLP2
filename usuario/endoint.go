@@ -7,24 +7,24 @@ import (
 )
 
 type registerUserRequest struct {
-	Usuario_id       string
-	Usuario_nombre   string
-	Usuario_email    string
-	Usuario_password string
-	Usuario_avatar   string
+	UsuarioID       string
+	UsuarioNombre   string
+	UsuarioEmail    string
+	UsuarioPassword string
+	UsuarioAvatar   string
 }
 
 type loginUserRequest struct {
-	Usuario_email    string
-	Usuario_password string
+	UsuarioEmail    string
+	UsuarioPassword string
 }
 
 func registerUserEndPoint(s Service) endpoint.Endpoint {
 	//Permitir la concurrencia con Context
 	registerUserEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(registerUserRequest)
-		id_user, err := s.registrarUsuario(&req)
-		return id_user, err
+		idUser, err := s.registrarUsuario(&req)
+		return idUser, err
 	}
 	return registerUserEndPoint
 }
@@ -33,8 +33,8 @@ func loginUserEndPoint(s Service) endpoint.Endpoint {
 	//Permitir la concurrencia con Context
 	loginUserEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(loginUserRequest)
-		user_login, err := s.LoginUsuario(&req)
-		return user_login, err
+		userLogin, err := s.LoginUsuario(&req)
+		return userLogin, err
 	}
 	return loginUserEndPoint
 }

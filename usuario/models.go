@@ -1,13 +1,15 @@
 package usuario
 
+/*Usuario para poder mostrar al usuario en el response*/
 type Usuario struct {
-	Usuario_id       string `json:"usuario_id"`
-	Usuario_nombre   string `json:"nombre"`
-	Usuario_email    string `json:"email"`
-	Usuario_password string `json:"password,omitempty"`
-	Usuario_avatar   string `json:"avatar,omitempty"`
+	UsuarioID       string `json:"usuario_id"`
+	UsuarioNombre   string `json:"nombre"`
+	UsuarioEmail    string `json:"email"`
+	UsuarioPassword string `json:"password,omitempty"`
+	UsuarioAvatar   string `json:"avatar,omitempty"`
 }
 
+/*RespuestaLogin token que será generado al iniciar sesión*/
 type RespuestaLogin struct {
 	Token string `json:"token,omitempty"`
 }

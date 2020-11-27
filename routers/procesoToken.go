@@ -2,7 +2,6 @@ package routers
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 
 	"github.com/RestApiELearningLP2/database"
@@ -11,13 +10,13 @@ import (
 	jwt "github.com/dgrijalva/jwt-go"
 )
 
-/*Valor usado de Email usado en todos los EndPoints*/
+/*Email Valor usado de Email usado en todos los EndPoints*/
 var Email string
 
 /*IDUsuario es el ID devuelto del modelo, que se usará en todos los EndPoints*/
 var IDUsuario string
 
-/*ProcesosToken Proceso token para extraer sus valores */
+/*ProcesoToken Proceso token para extraer sus valores */
 func ProcesoToken(tk string) (*models.Claim, bool, string, error) {
 	miClave := []byte("XDXDXD_token_XDXDXD")
 	claims := &models.Claim{}
@@ -39,14 +38,7 @@ func ProcesoToken(tk string) (*models.Claim, bool, string, error) {
 
 	if err == nil {
 		var encontradoBool bool = false
-		claims1, _ := tkn.Claims.(jwt.MapClaims)
-		if tkn.Valid {
-			fmt.Println(claims1)
-			IDUsuario1 := claims1["_id"]
-			Email1 := claims1["email"]
-			fmt.Println(IDUsuario1)
-			fmt.Println(Email1)
-		}
+
 		_, encontrado, errr := repository.ChequeoExisteUsuario(&claims.Email)
 		if errr != nil {
 			return claims, false, string(""), errr

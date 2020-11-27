@@ -6,12 +6,13 @@ import (
 	jwt "github.com/dgrijalva/jwt-go"
 )
 
+/*GeneroJWT Permite Crear el JWT*/
 func GeneroJWT(t *Usuario) (string, error) {
 	miClave := []byte("XDXDXD_token_XDXDXD") //Creando clave privada
 	claims := jwt.MapClaims{}
-	claims["email"] = t.Usuario_email
-	claims["nombre"] = t.Usuario_nombre
-	claims["_id"] = t.Usuario_id
+	claims["email"] = t.UsuarioEmail
+	claims["nombre"] = t.UsuarioNombre
+	claims["_id"] = t.UsuarioID
 	claims["exp"] = time.Now().Add(time.Hour * 1).Unix()
 	// payload := jwt.MapClaims{
 	// 	"email":  t.Usuario_email,

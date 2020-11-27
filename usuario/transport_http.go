@@ -1,5 +1,3 @@
-//Se llamara a un metodo del service dependiendo de la accion get o post
-//LLamadas de los metodos dependiendo de la accion
 package usuario
 
 import (
@@ -11,7 +9,8 @@ import (
 	kithttp "github.com/go-kit/kit/transport/http"
 )
 
-func MakeHttpsHandler(s Service) http.Handler {
+/*MakeHTTPSHandler para poder usar los diferentes metodos de inciicio secion*/
+func MakeHTTPSHandler(s Service) http.Handler {
 	//Creacion de las rutas
 	r := chi.NewRouter() //Creando instancia para iniciar el ruteo
 
